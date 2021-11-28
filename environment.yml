@@ -1,0 +1,20 @@
+name: bowling
+dependencies: 
+  - python=3.9
+  - pytest
+  - pytest-cache
+  - pytest-cov
+  - pytest-pep8
+  - pytest-remotedata
+  - pytest-timeout
+  - sphinx
+  - sphinxcontrib-applehelp
+  - sphinxcontrib-devhelp
+  - sphinxcontrib-htmlhelp
+  - sphinxcontrib-jsmath
+  - sphinxcontrib-qthelp
+  - sphinxcontrib-serializinghtml
+  - pip
+  #- pip: 
+    #- PyQt5==5.*
+    #- pyqt5-sip==4.*
