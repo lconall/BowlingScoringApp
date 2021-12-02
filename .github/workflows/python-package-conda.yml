@@ -14,14 +14,17 @@ jobs:
           - os: ubuntu-latest
             label: linux-64
             prefix: /usr/share/miniconda3/envs/my-env
+            shell: bash
 
           - os: macos-latest
             label: osx-64
             prefix: /Users/runner/miniconda3/envs/my-env
+            shell: bash
 
           - os: windows-latest
             label: win-64
             prefix: C:\Miniconda3\envs\my-env
+            shell: cmd
       max-parallel: 5
 
     name: ${{ matrix.label }}
@@ -49,9 +52,12 @@ jobs:
       - name: Install or Update dependencies
         run: |
           conda env update --file environment.yml --name base
-          source /usr/share/miniconda/bin/conda
         if: steps.cache.outputs.cache-hit != 'true'
         
+      - name: Activate Conda Env
+        run: |
+          conda activate base
+          
       - name: Run tests
-        shell: bash -l {0}
+        shell: ${{ matrix.shell }}
         run: pytest ./tests
