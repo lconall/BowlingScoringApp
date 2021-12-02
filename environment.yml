@@ -5,7 +5,7 @@ dependencies:
   - pytest
   - pytest-cache
   - pytest-cov
-  - pytest-pep8
+  - pycodestyle
   - pytest-remotedata
   - pytest-timeout
   - sphinx
