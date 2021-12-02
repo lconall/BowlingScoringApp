@@ -22,7 +22,7 @@ jobs:
           - os: windows-latest
             label: win-64
             prefix: C:\Miniconda3\envs\my-env
-        max-parallel: 5
+      max-parallel: 5
 
     name: ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
