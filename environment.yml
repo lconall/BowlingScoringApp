@@ -1,6 +1,7 @@
 name: bowling
-dependencies: 
+dependencies:
   - python=3.9
+  - flask
   - pytest
   - pytest-cache
   - pytest-cov
@@ -15,6 +16,6 @@ dependencies:
   - sphinxcontrib-qthelp
   - sphinxcontrib-serializinghtml
   - pip
-  #- pip: 
+  #- pip:
     #- PyQt5==5.*
     #- pyqt5-sip==4.*
