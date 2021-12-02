@@ -29,7 +29,8 @@ To install the conda environment use the following command in your terminal
 0) Install Anaconda
 1) Navigate to the root directory in this repo via your command line or terminal
 2) In the your terminal run `conda env create --file=environment.yaml`
-3) After the conda environment is setup run `python -m pytest` in the root directory
+3) In the your terminal run `conda activate bowling`
+4) After the conda environment is setup run `python -m pytest` in the root directory
 
 ### Next Steps:
 If I were to continue to work on this application more there would be a few things I would modify
