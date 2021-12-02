@@ -37,6 +37,6 @@ jobs:
       
     - name: Test with pytest
       run: |
-        $CONDA/bin/conda init zsh
+        $CONDA/bin/conda init bash
         $CONDA/bin/conda activate base
         python -m pytest
