@@ -2,55 +2,45 @@ name: Python Package using Conda
 
 on: [push]
 
-env:
-  CACHE_NUMBER: 0  # increase to reset cache manually
-
 jobs:
-  build:
-
+  build-linux:
+    runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            label: linux-64
-            prefix: /usr/share/miniconda3/envs/my-env
-          - os: macos-latest
-            label: osx-64
-            prefix: /Users/runner/miniconda3/envs/my-env
-          - os: windows-latest
-            label: win-64
-            prefix: C:\Miniconda3\envs\my-env
+      max-parallel: 5
 
-    name: ${{ matrix.label }}
-    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9.0
-      - name: Add conda to system path
-        run: |
-          # $CONDA is an environment variable pointing to the root of the miniconda directory
-          echo $CONDA/bin >> $GITHUB_PATH
-      
-      - name: Set cache date
-        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
-      - uses: actions/cache@v2
-        with:
-          path: ${{ matrix.prefix }}
-          key: ${{ matrix.label }}-conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
-        id: cache
-
-      - name: Install or Update dependencies
-        run: |
-          conda env update --file environment.yml --name base
-        if: steps.cache.outputs.cache-hit != 'true'
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9.0
         
-      - name: Activate Conda Env
-        run: |
-          conda activate base
-          
-      - name: Run tests
-        run: pytest ./tests
+    - name: Add conda to system path
+      run: |
+        # $CONDA is an environment variable pointing to the root of the miniconda directory
+        echo $CONDA/bin >> $GITHUB_PATH
+        
+    - name: Install dependencies
+      run: |
+        conda env update --file environment.yml --name base
+        
+    - name: Set cache date
+      run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
+      
+    - uses: actions/cache@v2
+      with:
+          path: /usr/share/miniconda3/envs/my-env
+          key: linux-64-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
+      id: cache
+
+    - name: Install or Update dependencies
+      run: |
+           conda env update --file environment.yml --name base
+      if: steps.cache.outputs.cache-hit != 'true'
+      
+    - name: Test with pytest
+      run: |
+        conda init zsh
+        conda activate base
+        python -m pytest
