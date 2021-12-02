@@ -15,17 +15,14 @@ jobs:
             label: linux-64
             prefix: /usr/share/miniconda3/envs/my-env
             shell: bash
-
           - os: macos-latest
             label: osx-64
             prefix: /Users/runner/miniconda3/envs/my-env
             shell: bash
-
           - os: windows-latest
             label: win-64
             prefix: C:\Miniconda3\envs\my-env
             shell: cmd
-      max-parallel: 5
 
     name: ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
