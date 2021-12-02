@@ -24,5 +24,5 @@ jobs:
     - name: Test with pytest
       run: |
         conda init zsh
-        conda -l activate bowling
+        conda -l activate base
         python -m pytest
